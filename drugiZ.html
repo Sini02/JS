@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        #output {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Kalkulator</h1>
+<div id="output"></div>
+
+<!-- Forme za unos -->
+<div id="inputForm">
+    <label for="num1">Unesite prvi broj:</label>
+    <input type="text" id="num1">
+    <button onclick="submitNum1()">Potvrdi</button>
+</div>
+
+<div id="inputForm2" style="display:none;">
+    <label for="num2">Unesite drugi broj:</label>
+    <input type="text" id="num2">
+    <button onclick="submitNum2()">Potvrdi</button>
+</div>
+
+<div id="operationForm" style="display:none;">
+    <label for="operation">Izaberite operaciju (+, -, *, /):</label>
+    <input type="text" id="operation">
+    <button onclick="submitOperation()">Potvrdi</button>
+</div>
+
+<div id="resetForm" style="display:none;">
+    <button onclick="resetCalculator()">Unesi nove brojeve</button>
+</div>
+
+<script>
+    let outputDiv = document.getElementById("output");
+    let number1, number2, result;
+
+    function submitNum1() {
+        const num1Input = document.getElementById("num1").value;
+        number1 = parseInt(num1Input);
+        
+        if (isNaN(number1)) {
+            outputDiv.innerHTML += "Ponovite unos prvog broja: <br>";
+        } else {
+            outputDiv.innerHTML += "Prvi broj: " + number1 + "<br>";
+            document.getElementById("inputForm").style.display = "none";
+            document.getElementById("inputForm2").style.display = "block";
+        }
+    }
+
+    function submitNum2() {
+        const num2Input = document.getElementById("num2").value;
+        number2 = parseInt(num2Input);
+        
+        if (isNaN(number2)) {
+            outputDiv.innerHTML += "Ponovite unos drugog broja: <br>";
+        } else {
+            outputDiv.innerHTML += "Drugi broj: " + number2 + "<br>";
+            document.getElementById("inputForm2").style.display = "none";
+            document.getElementById("operationForm").style.display = "block";
+        }
+    }
+
+    function submitOperation() {
+        const operation = document.getElementById("operation").value;
+
+        if (operation === "+") {
+            result = number1 + number2;
+        } else if (operation === "-") {
+            result = number1 - number2;
+        } else if (operation === "*") {
+            result = number1 * number2;
+        } else if (operation === "/") {
+            if (number2 === 0) {
+                outputDiv.innerHTML += "Greška: Delilac ne sme biti 0<br>";
+                // Ponovo traži drugi broj
+                outputDiv.innerHTML += "Unesite novu (ili istu ukoliko želite drugu operaciju) vrednost drugog broja: <br>";
+                document.getElementById("inputForm2").style.display = "block";
+                document.getElementById("num2").value = ""; // Resetuje polje
+                return;
+            }
+            result = number1 / number2;
+        } else {
+            outputDiv.innerHTML += "Niste ispravno uneli operaciju! Pokušajte ponovo.<br>";
+            return;
+        }
+
+        outputDiv.innerHTML += "Rezultat: " + result + "<br>";
+        document.getElementById("resetForm").style.display = "block"; // Prikazuje dugme za novi unos
+    }
+
+    function resetCalculator() {
+        // Resetuje sve varijable i obnavlja forme
+        number1 = undefined;
+        number2 = undefined;
+        result = undefined;
+        outputDiv.innerHTML = ""; // Briše prethodni ispis
+        document.getElementById("inputForm").style.display = "block"; // Prikazuje formu za prvi broj
+        document.getElementById("inputForm2").style.display = "none"; // Sakriva formu za drugi broj
+        document.getElementById("operationForm").style.display = "none"; // Sakriva formu za operaciju
+        document.getElementById("resetForm").style.display = "none"; // Sakriva dugme za novi unos
+        document.getElementById("num1").value = ""; // Resetuje polje za prvi broj
+        document.getElementById("num2").value = ""; // Resetuje polje za drugi broj
+        document.getElementById("operation").value = ""; // Resetuje polje za operaciju
+    }
+</script>
+
+</body>
+</html>
