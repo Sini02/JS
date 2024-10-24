@@ -24,7 +24,6 @@
 <h1>Kalkulator</h1>
 <div id="output"></div>
 
-<!-- Forme za unos -->
 <div id="inputForm">
     <label for="num1">Unesite prvi broj:</label>
     <input type="text" id="num1">
@@ -89,10 +88,9 @@
         } else if (operation === "/") {
             if (number2 === 0) {
                 outputDiv.innerHTML += "Greška: Delilac ne sme biti 0<br>";
-                // Ponovo traži drugi broj
                 outputDiv.innerHTML += "Unesite novu (ili istu ukoliko želite drugu operaciju) vrednost drugog broja: <br>";
                 document.getElementById("inputForm2").style.display = "block";
-                document.getElementById("num2").value = ""; // Resetuje polje
+                document.getElementById("num2").value = "";
                 return;
             }
             result = number1 / number2;
@@ -102,22 +100,21 @@
         }
 
         outputDiv.innerHTML += "Rezultat: " + result + "<br>";
-        document.getElementById("resetForm").style.display = "block"; // Prikazuje dugme za novi unos
+        document.getElementById("resetForm").style.display = "block";
     }
 
     function resetCalculator() {
-        // Resetuje sve varijable i obnavlja forme
         number1 = undefined;
         number2 = undefined;
         result = undefined;
-        outputDiv.innerHTML = ""; // Briše prethodni ispis
-        document.getElementById("inputForm").style.display = "block"; // Prikazuje formu za prvi broj
-        document.getElementById("inputForm2").style.display = "none"; // Sakriva formu za drugi broj
-        document.getElementById("operationForm").style.display = "none"; // Sakriva formu za operaciju
-        document.getElementById("resetForm").style.display = "none"; // Sakriva dugme za novi unos
-        document.getElementById("num1").value = ""; // Resetuje polje za prvi broj
-        document.getElementById("num2").value = ""; // Resetuje polje za drugi broj
-        document.getElementById("operation").value = ""; // Resetuje polje za operaciju
+        outputDiv.innerHTML = "";
+        document.getElementById("inputForm").style.display = "block"; 
+        document.getElementById("inputForm2").style.display = "none";
+        document.getElementById("operationForm").style.display = "none";
+        document.getElementById("resetForm").style.display = "none";
+        document.getElementById("num1").value = ""; 
+        document.getElementById("num2").value = "";
+        document.getElementById("operation").value = "";
     }
 </script>
 
